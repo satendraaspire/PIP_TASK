@@ -1,0 +1,177 @@
+<div class="card className">
+  <div class="card-header">
+    <ul
+      class="nav nav-pills card-header-pills justify-content-between align-items-center"
+    >
+      <li class="nav-item">
+        <a class="nav-link">
+          <strong class="text-dark">Create New Employee </strong></a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+            <button type="button" (click)="addEmployee()" class="btn text-bg-dark">Add New Employees</button>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <div formArrayName="employees">
+        <div
+          *ngFor="let employee of employees().controls; let i = index"
+        >
+
+            <div class="mb-2 mt-3"> <strong> Employee : {{ i + 1 }}</strong></div>
+
+          <div class="row" [formGroupName]="i">
+            <div class="col-md-4 col-sm-12">
+              <label for="fName" class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter First Name"
+                [formControlName]="controlNames.firstName"
+                [ngClass]="{ 'is-invalid': employees().controls[i].get('firstName')?.touched && employees().controls[i].get('firstName')?.errors}"
+              />
+            <div *ngIf="employees().controls[i].get('firstName')?.errors && employees().controls[i].get('firstName')?.touched" class="invalid-feedback">
+                    First Name is required
+            </div> 
+
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+              <label for="lName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Last Name"
+                [formControlName]="controlNames.lastName"
+                [ngClass]="{ 'is-invalid': employees().controls[i].get('lastName')?.touched && employees().controls[i].get('lastName')?.errors}"
+
+              />
+              <div *ngIf="employees().controls[i].get('lastName')?.errors && employees().controls[i].get('lastName')?.touched" class="invalid-feedback">
+                Last Name is required
+            </div> 
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Email"
+                [formControlName]="controlNames.email"
+                [ngClass]="{ 'is-invalid': employees().controls[i].get('email')?.touched && employees().controls[i].get('email')?.errors}"
+
+              />
+              <div *ngIf="employees().controls[i].get('email')?.errors && employees().controls[i].get('email')?.touched" class="invalid-feedback">
+                Invalid Mail Id
+            </div> 
+            </div>
+            <div class="col-md-4 col-sm-12 mt-3">
+              <label for="email" class="form-label">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter Your Age"
+                [formControlName]="controlNames.age"
+                [ngClass]="{ 'is-invalid': employees().controls[i].get('age')?.touched && employees().controls[i].get('age')?.errors}"
+
+              />
+              <div *ngIf="employees().controls[i].get('age')?.errors && employees().controls[i].get('age')?.touched" class="invalid-feedback">
+                Age is required
+            </div> 
+            </div>
+
+            <div class="col-md-4 col-sm-12 mt-3">
+                <label for="email" class="w-100 form-label me-2">Gender</label>
+                <input
+                id="{{'male'+i}}"
+                type="radio"
+                class=""
+                value="male"
+                name="gender"
+                [formControlName]="controlNames.gender"
+                [ngClass]="{ 'is-invalid':  employees().controls[i].get('gender')?.errors}"
+
+                />
+                <label class="custom-control-label" for="male">Male</label>
+
+                <input
+                id="female"
+                type="radio"
+                class=" ms-2"
+                value="female"
+                name="gender"
+                [formControlName]="controlNames.gender"
+                [ngClass]="{ 'is-invalid': employees().controls[i].get('gender')?.errors}"
+
+                />
+                <label class="custom-control-label" for="female">Female</label>
+
+                <div *ngIf="employees().controls[i].get('age')?.errors" class="invalid-feedback">
+                    Gender is required
+                </div> 
+            </div>
+
+            <div [formArrayName]="controlNames.phoneNumberList">
+              <div 
+                *ngFor="
+                  let empNumber of employeePhoneNumber(i).controls;
+                  let numberIndex = index
+                "
+              >
+              <div [formGroupName]="numberIndex" class="col-md-4 col-sm-12 mt-3">
+                <label for="email" class="form-label"> Phone Number {{ numberIndex + 1 }} :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter PhoneNumber"
+                  [formControlName]="controlNames.phoneNumber"
+                  [ngClass]="{ 'is-invalid': employeePhoneNumber(i).controls[numberIndex].get('phoneNumber')?.touched && employeePhoneNumber(i).controls[numberIndex].get('phoneNumber')?.errors}"
+
+                />
+                <div *ngIf="employeePhoneNumber(i).controls[numberIndex].get('phoneNumber')?.errors &&  employeePhoneNumber(i).controls[numberIndex].get('phoneNumber')?.touched"   class="invalid-feedback">
+                    PhoneNumber is required
+                </div> 
+              </div>
+          
+              </div>
+              <span role="button" class="pt-1 badge rounded-pill text-bg-dark" (click)="addPhoneNumber(i)">Add</span>
+            </div>
+      
+
+            <div class="col-md-4 col-sm-12">
+                <label for="email" class="form-label">Address</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" 
+                [formControlName]="controlNames.address"
+                [ngClass]="{ 'is-invalid': employees().controls[i].get('address')?.touched && employees().controls[i].get('address')?.errors}"
+
+                ></textarea>
+                <div *ngIf="employees().controls[i].get('address')?.errors && employees().controls[i].get('address')?.touched" class="invalid-feedback">
+                    Address is required
+                </div> 
+            </div>
+         
+          </div>
+        </div>
+      </div>
+
+      <p>
+      </p>
+
+      <p>
+        <button class="text-center btn btn-danger" type="submit">Submit</button>
+      </p>
+    </form>
+    <p></p>
+  </div>
+
+  <div *ngIf="this.isvaild">
+    <h3>Employee Details</h3>
+    {{ this.employeeForm.value | json }}</div>
+</div>
+
+
