@@ -12,6 +12,7 @@ export class EmployeeFormComponent implements OnInit {
   employeeForm!: FormGroup;
   isvaild = false;
   controlNames = controlNames;
+  submitted = false;
 
   constructor(private fb: FormBuilder, private toastr: ToastrService) {}
 
@@ -69,6 +70,7 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (!this.employeeForm.valid) {
       this.toastr.error('Invalid Form');
     } else {

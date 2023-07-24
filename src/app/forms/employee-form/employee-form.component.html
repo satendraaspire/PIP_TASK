@@ -40,14 +40,16 @@
                 [formControlName]="controlNames.firstName"
                 [ngClass]="{
                   'is-invalid':
-                    employees().controls[i].get('firstName')?.touched &&
+                    (employees().controls[i].get('firstName')?.touched ||
+                      submitted) &&
                     employees().controls[i].get('firstName')?.errors
                 }"
               />
               <div
                 *ngIf="
                   employees().controls[i].get('firstName')?.errors &&
-                  employees().controls[i].get('firstName')?.touched
+                  (employees().controls[i].get('firstName')?.touched ||
+                    submitted)
                 "
                 class="invalid-feedback"
               >
@@ -64,14 +66,16 @@
                 [formControlName]="controlNames.lastName"
                 [ngClass]="{
                   'is-invalid':
-                    employees().controls[i].get('lastName')?.touched &&
+                    (employees().controls[i].get('lastName')?.touched ||
+                      submitted) &&
                     employees().controls[i].get('lastName')?.errors
                 }"
               />
               <div
                 *ngIf="
                   employees().controls[i].get('lastName')?.errors &&
-                  employees().controls[i].get('lastName')?.touched
+                  (employees().controls[i].get('lastName')?.touched ||
+                    submitted)
                 "
                 class="invalid-feedback"
               >
@@ -87,14 +91,15 @@
                 [formControlName]="controlNames.email"
                 [ngClass]="{
                   'is-invalid':
-                    employees().controls[i].get('email')?.touched &&
+                    (employees().controls[i].get('email')?.touched ||
+                      submitted) &&
                     employees().controls[i].get('email')?.errors
                 }"
               />
               <div
                 *ngIf="
                   employees().controls[i].get('email')?.errors &&
-                  employees().controls[i].get('email')?.touched
+                  (employees().controls[i].get('email')?.touched || submitted)
                 "
                 class="invalid-feedback"
               >
@@ -110,14 +115,15 @@
                 [formControlName]="controlNames.age"
                 [ngClass]="{
                   'is-invalid':
-                    employees().controls[i].get('age')?.touched &&
+                    (employees().controls[i].get('age')?.touched ||
+                      submitted) &&
                     employees().controls[i].get('age')?.errors
                 }"
               />
               <div
                 *ngIf="
                   employees().controls[i].get('age')?.errors &&
-                  employees().controls[i].get('age')?.touched
+                  (employees().controls[i].get('age')?.touched || submitted)
                 "
                 class="invalid-feedback"
               >
@@ -148,13 +154,14 @@
                 name="gender"
                 [formControlName]="controlNames.gender"
                 [ngClass]="{
-                  'is-invalid': employees().controls[i].get('gender')?.errors
+                  'is-invalid':
+                    submitted && employees().controls[i].get('gender')?.errors
                 }"
               />
               <label class="custom-control-label" for="female">Female</label>
 
               <div
-                *ngIf="employees().controls[i].get('age')?.errors"
+                *ngIf="submitted && employees().controls[i].get('age')?.errors"
                 class="invalid-feedback"
               >
                 Gender is required
@@ -182,9 +189,10 @@
                     [formControlName]="controlNames.phoneNumber"
                     [ngClass]="{
                       'is-invalid':
-                        employeePhoneNumber(i).controls[numberIndex].get(
+                        (employeePhoneNumber(i).controls[numberIndex].get(
                           'phoneNumber'
-                        )?.touched &&
+                        )?.touched ||
+                          submitted) &&
                         employeePhoneNumber(i).controls[numberIndex].get(
                           'phoneNumber'
                         )?.errors
@@ -195,9 +203,10 @@
                       employeePhoneNumber(i).controls[numberIndex].get(
                         'phoneNumber'
                       )?.errors &&
-                      employeePhoneNumber(i).controls[numberIndex].get(
+                      (employeePhoneNumber(i).controls[numberIndex].get(
                         'phoneNumber'
-                      )?.touched
+                      )?.touched ||
+                        submitted)
                     "
                     class="invalid-feedback"
                   >
@@ -222,14 +231,15 @@
                 [formControlName]="controlNames.address"
                 [ngClass]="{
                   'is-invalid':
-                    employees().controls[i].get('address')?.touched &&
+                    (employees().controls[i].get('address')?.touched ||
+                      submitted) &&
                     employees().controls[i].get('address')?.errors
                 }"
               ></textarea>
               <div
                 *ngIf="
                   employees().controls[i].get('address')?.errors &&
-                  employees().controls[i].get('address')?.touched
+                  (employees().controls[i].get('address')?.touched || submitted)
                 "
                 class="invalid-feedback"
               >
